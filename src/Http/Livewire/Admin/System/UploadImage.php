@@ -12,6 +12,7 @@ class UploadImage extends Component
     public $attribute;
 
     public $multiple = false;
+    protected $listeners = ['image_deleted' => '$refresh'];
 
     public function mount($model = null, $attribute = 'image', $multiple = false)
     {
@@ -28,6 +29,6 @@ class UploadImage extends Component
     public function removeImage(Media $media, $collection = null)
     {
         $media->delete();
-        $this->model = null;
+        $this->emit('image_deleted');
     }
 }
